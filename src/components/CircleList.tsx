@@ -23,10 +23,11 @@ const List = styled.ol`
 
 const ListItem = styled.li`
   margin: 1rem 0;
-  background-color: #f1f3f5;
   padding: 1rem; 0;
   border-radius: 0.2rem;
   border: 1px solid #adb5bd;
+
+  background-color: white;
 `;
 
 const Label = styled.div`
@@ -86,7 +87,7 @@ export default function CircleList({ value, onChange }: CircleListProps) {
 
   function onAdd() {
     const integers = addText.split(",").map((n) => parseInt(n));
-    if (integers.length !== 3 || !integers.every((v) => isNaN(v))) {
+    if (integers.length === 3 || !integers.every((v) => isNaN(v))) {
       onChange(
         value.concat({
           radius: integers[0],
@@ -116,6 +117,7 @@ export default function CircleList({ value, onChange }: CircleListProps) {
           placeholder="반지름, 계수, 초기각"
           value={addText}
           onChange={(e) => setAddText(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && onAdd()}
         />
         <AddButton type="button" value="추가" onClick={onAdd} />
       </InputContainer>
