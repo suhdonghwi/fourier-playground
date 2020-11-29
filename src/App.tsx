@@ -5,6 +5,8 @@ import UnitCircle from "./types/UnitCircle";
 import Point from "./types/Point";
 import fourierCoefficient from "./fourier/coefficient";
 
+import CircleList from "./components/CircleList";
+
 function cleanPath(path: Point[]) {
   let lastPoint = path[0];
   const result = [lastPoint];
@@ -17,7 +19,7 @@ function cleanPath(path: Point[]) {
   }
 
   // closing curves
-  if (Math.abs((lastPoint.x - result[0].x) + (lastPoint.y - result[0].y)) > 50) {
+  if (Math.abs(lastPoint.x - result[0].x + (lastPoint.y - result[0].y)) > 50) {
     const deltaX = result[0].x - lastPoint.x,
       deltaY = result[0].y - lastPoint.y;
 
@@ -67,6 +69,9 @@ function App() {
         isGraphMode={true}
         onDrawFinish={onDrawFinish}
       />
+      <div className="right">
+        <CircleList value={circles} onChange={() => 1} />
+      </div>
     </div>
   );
 }

@@ -26,23 +26,23 @@ export default function Canvas({
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    p5.createCanvas(p5.windowWidth/2, p5.windowHeight).parent(canvasParentRef);
+    p5.createCanvas(p5.windowWidth / 2, p5.windowHeight).parent(
+      canvasParentRef
+    );
     p5.strokeWeight(2);
   };
 
   const draw = (p5: p5Types) => {
     p5.background(240);
 
-    if (p5.mouseIsPressed) {
+    if (p5.mouseIsPressed && p5.mouseX <= p5.width && p5.mouseY <= p5.height) {
       pressed = true;
       trail.length = 0;
 
-      if (p5.mouseIsPressed) {
-        drawing.push({
-          x: p5.mouseX - p5.width / 2,
-          y: p5.height / 2 - p5.mouseY,
-        });
-      }
+      drawing.push({
+        x: p5.mouseX - p5.width / 2,
+        y: p5.height / 2 - p5.mouseY,
+      });
 
       p5.beginShape();
       p5.stroke(255, 0, 0);
@@ -96,7 +96,7 @@ export default function Canvas({
       const trailPoint = {
         x:
           startPoint.x +
-          unitCircles.map((c) => c.radius).reduce((v1, v2) => v1 + v2),
+          unitCircles.map((c) => c.radius).reduce((v1, v2) => v1 + v2, 0),
         y: point.y,
       };
 
