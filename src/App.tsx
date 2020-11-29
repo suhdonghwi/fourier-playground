@@ -3,14 +3,16 @@ import Canvas from "./components/Canvas";
 import * as math from "mathjs";
 
 import UnitCircle from "./types/UnitCircle";
+import Point from "./types/Point";
 import fourierCoefficient from "./fourier/coefficient";
 
 function App() {
   const [circleNum, setCircleNum] = useState(30);
   const [circles, setCircles] = useState<UnitCircle[]>([]);
+  const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
 
   useEffect(() => {
-    const coeffs = fourierCoefficient(f, circleNum);
+    const coeffs = fourierCoefficient(path, circleNum);
     const cs: UnitCircle[] = [];
 
     let n = -circleNum;
@@ -26,26 +28,19 @@ function App() {
     }
 
     setCircles(cs);
-  }, [circleNum]);
+  }, [circleNum, path]);
 
-  function f(x: number) {
-    return math.complex(600 * (x - 0.5), 100);
-    /*if (x <= 0.25) {
-      return math.complex(300 * x, 0);
-    } else if (x <= 0.5) {
-      return math.complex(75, 300 * (x - 0.25));
-    } else if (x <= 0.75) {
-      return math.complex(75 - 300 * (x - 0.5), 75);
-    } else {
-      return math.complex(0, 75 - 300 * (x - 0.75));
-    }*/
-    /*if (x <= 0.5) return math.complex(100 * x, 0);
-    else return math.complex(100 * x, 100);*/
+  function onDrawFinish(drawing: Point[]) {
+    setPath(drawing);
   }
 
   return (
     <div className="App">
-      <Canvas unitCircles={circles} isGraphMode={false} />
+      <Canvas
+        unitCircles={circles}
+        isGraphMode={false}
+        onDrawFinish={onDrawFinish}
+      />
     </div>
   );
 }

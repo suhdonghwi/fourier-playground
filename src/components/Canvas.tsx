@@ -8,15 +8,20 @@ import UnitCircle from "../types/UnitCircle";
 interface CanvasProps {
   unitCircles: UnitCircle[];
   isGraphMode: boolean;
+  onDrawFinish: (drawing: Point[]) => void;
 }
 
-export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
+export default function Canvas({
+  unitCircles,
+  isGraphMode,
+  onDrawFinish,
+}: CanvasProps) {
   let theta = 0;
   const thetaDelta = 0.001;
   const trail: Point[] = [];
 
-  let pressed = false;
   const drawing: Point[] = [];
+  let pressed = false;
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
@@ -30,10 +35,30 @@ export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
 
     if (p5.mouseIsPressed) {
       pressed = true;
-      drawing.push({x: p5.mouseX - p5.width/2, y: (p5.height/2) - p5.mouseY});
+      trail.length = 0;
+
+      if (p5.mouseIsPressed) {
+        drawing.push({
+          x: p5.mouseX - p5.width / 2,
+          y: p5.height / 2 - p5.mouseY,
+        });
+      }
+
+      p5.beginShape();
+      p5.stroke(255, 0, 0);
+      p5.noFill();
+      for (const point of drawing) {
+        if (point.x <= p5.windowWidth) {
+          p5.curveVertex(point.x + p5.width / 2, -point.y + p5.height / 2);
+        }
+      }
+      p5.endShape();
+
+      return;
     } else if (pressed) {
-      pressed = false;
       console.log(drawing);
+      pressed = false;
+      onDrawFinish([...drawing]);
       drawing.length = 0;
     }
 
@@ -52,8 +77,12 @@ export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
         circle.radius * 2
       );
       prevPoint = {
-        x: prevPoint.x + circle.radius * Math.cos(circle.phi + circle.coefficient * theta),
-        y: prevPoint.y - circle.radius * Math.sin(circle.phi + circle.coefficient * theta),
+        x:
+          prevPoint.x +
+          circle.radius * Math.cos(circle.phi + circle.coefficient * theta),
+        y:
+          prevPoint.y -
+          circle.radius * Math.sin(circle.phi + circle.coefficient * theta),
       };
     }
 
