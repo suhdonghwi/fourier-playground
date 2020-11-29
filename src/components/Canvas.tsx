@@ -26,7 +26,7 @@ export default function Canvas({
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    p5.createCanvas(p5.windowWidth, 600).parent(canvasParentRef);
+    p5.createCanvas(p5.windowWidth/2, p5.windowHeight).parent(canvasParentRef);
     p5.strokeWeight(2);
   };
 
@@ -66,8 +66,8 @@ export default function Canvas({
     p5.stroke(200);
 
     const startPoint = isGraphMode
-      ? { x: 200, y: 300 }
-      : { x: p5.windowWidth / 2, y: 300 };
+      ? { x: 100, y: p5.height / 2 }
+      : { x: p5.width / 2, y: p5.height / 2 };
     let prevPoint = startPoint;
     for (const circle of unitCircles) {
       p5.ellipse(
