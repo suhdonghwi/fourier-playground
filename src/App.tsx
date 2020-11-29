@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Canvas from "./components/Canvas";
-import * as math from "mathjs";
 
 import UnitCircle from "./types/UnitCircle";
 import Point from "./types/Point";
 import fourierCoefficient from "./fourier/coefficient";
+
+function cleanPath(path: Point[]) {
+  let lastPoint = path[0];
+  const result = [lastPoint];
+
+  for (let i = 1; i < path.length; i++) {
+    if (Math.abs(path[i].x - lastPoint.x + (path[i].y - lastPoint.y)) > 0.5) {
+      result.push(path[i]);
+      lastPoint = path[i];
+    }
+  }
+
+  // closing curves
+  if (Math.abs((lastPoint.x - result[0].x) + (lastPoint.y - result[0].y)) > 50) {
+    const deltaX = result[0].x - lastPoint.x,
+      deltaY = result[0].y - lastPoint.y;
+
+    for (let i = 1; i < 10; i++) {
+      result.push({
+        x: lastPoint.x + (deltaX / 10) * i,
+        y: lastPoint.y + (deltaY / 10) * i,
+      });
+    }
+  }
+
+  return result;
+}
 
 function App() {
   const [circleNum, setCircleNum] = useState(30);
@@ -31,7 +57,7 @@ function App() {
   }, [circleNum, path]);
 
   function onDrawFinish(drawing: Point[]) {
-    setPath(drawing);
+    setPath(cleanPath(drawing));
   }
 
   return (
