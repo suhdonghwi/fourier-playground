@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 
 import UnitCircle from "../types/UnitCircle";
@@ -9,7 +9,9 @@ const Container = styled.div`
 `;
 
 const List = styled.ol`
-  padding: 0;
+  margin: 0rem 0 1rem 0;
+
+  padding: 0.5rem 1rem;
   list-style-type: none;
 
   height: 350px;
@@ -42,7 +44,12 @@ const Number = styled.span`
   font-size: 1.2rem;
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+`;
+
 const AddInput = styled.input`
+  flex: 1;
   font-size: 1.1rem;
   width: 100%;
   padding: 0.75rem;
@@ -52,6 +59,21 @@ const AddInput = styled.input`
   border: 1px solid #adb5bd;
   border-radius: 0.2rem;
   outline: none;
+
+  margin-right: 0.5rem;
+`;
+
+const AddButton = styled.input`
+  cursor: pointer;
+
+  border: none;
+  border-radius: 0.2rem;
+
+  font-size: 1rem;
+  padding: 0 1rem;
+
+  background-color: #37b24d;
+  color: white;
 `;
 
 interface CircleListProps {
@@ -60,6 +82,23 @@ interface CircleListProps {
 }
 
 export default function CircleList({ value, onChange }: CircleListProps) {
+  const [addText, setAddText] = useState("");
+
+  function onAdd() {
+    const integers = addText.split(",").map((n) => parseInt(n));
+    if (integers.length !== 3 || !integers.every((v) => isNaN(v))) {
+      onChange(
+        value.concat({
+          radius: integers[0],
+          coefficient: integers[1],
+          phi: integers[2],
+        })
+      );
+
+      setAddText("");
+    }
+  }
+
   return (
     <Container>
       <List>
@@ -71,7 +110,15 @@ export default function CircleList({ value, onChange }: CircleListProps) {
           </ListItem>
         ))}
       </List>
-      <AddInput type="text" placeholder="반지름, 계수, 초기각" />
+      <InputContainer>
+        <AddInput
+          type="text"
+          placeholder="반지름, 계수, 초기각"
+          value={addText}
+          onChange={(e) => setAddText(e.target.value)}
+        />
+        <AddButton type="button" value="추가" onClick={onAdd} />
+      </InputContainer>
     </Container>
   );
 }

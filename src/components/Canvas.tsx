@@ -26,7 +26,7 @@ export default function Canvas({
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    p5.createCanvas(p5.windowWidth / 2, p5.windowHeight).parent(
+    p5.createCanvas(p5.windowWidth / 2, p5.windowHeight-3).parent(
       canvasParentRef
     );
     p5.strokeWeight(2);

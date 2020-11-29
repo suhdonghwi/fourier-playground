@@ -41,7 +41,7 @@ function App() {
   const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
 
   useEffect(() => {
-    console.log('what');
+    console.log("what");
     if (isFirst) {
       setIsFirst(false);
     } else {
@@ -76,7 +76,7 @@ function App() {
         onDrawFinish={onDrawFinish}
       />
       <div className="right">
-        <CircleList value={circles} onChange={() => 1} />
+        <CircleList value={circles} onChange={(c) => setCircles(c)} />
       </div>
     </div>
   );
