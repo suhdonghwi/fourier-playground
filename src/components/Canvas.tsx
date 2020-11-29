@@ -9,7 +9,7 @@ export default function Canvas() {
   const thetaDelta = 0.05;
   const trail: Point[] = [];
 
-  const circlePoint = {x: 200, y: 300};
+  const circlePoint = { x: 200, y: 300 };
   const circleRadius = 100;
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -24,15 +24,20 @@ export default function Canvas() {
 
     p5.noFill();
     p5.stroke(200);
-    p5.ellipse(circlePoint.x, circlePoint.y, circleRadius * 2, circleRadius * 2);
+    p5.ellipse(
+      circlePoint.x,
+      circlePoint.y,
+      circleRadius * 2,
+      circleRadius * 2
+    );
 
     const point = {
       x: circlePoint.x + circleRadius * Math.cos(theta),
       y: circlePoint.y - circleRadius * Math.sin(theta),
     };
     const trailPoint = {
-        x: circlePoint.x + circleRadius,
-        y: point.y
+      x: circlePoint.x + circleRadius,
+      y: point.y,
     };
 
     p5.noFill();
@@ -53,8 +58,10 @@ export default function Canvas() {
     p5.stroke(255, 0, 0);
     p5.noFill();
     for (const point of trail) {
+      if (point.x <= p5.windowWidth) {
         p5.curveVertex(point.x, point.y);
         point.x += 2;
+      }
     }
     p5.endShape();
 
