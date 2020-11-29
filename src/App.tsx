@@ -36,26 +36,32 @@ function cleanPath(path: Point[]) {
 
 function App() {
   const [circleNum, setCircleNum] = useState(30);
+  const [isFirst, setIsFirst] = useState(true);
   const [circles, setCircles] = useState<UnitCircle[]>([]);
   const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
 
   useEffect(() => {
-    const coeffs = fourierCoefficient(path, circleNum);
-    const cs: UnitCircle[] = [];
+    console.log('what');
+    if (isFirst) {
+      setIsFirst(false);
+    } else {
+      const coeffs = fourierCoefficient(path, circleNum);
+      const cs: UnitCircle[] = [];
 
-    let n = -circleNum;
-    for (const coeff of coeffs) {
-      const polar = coeff.toPolar();
+      let n = -circleNum;
+      for (const coeff of coeffs) {
+        const polar = coeff.toPolar();
 
-      cs.push({
-        radius: polar.r,
-        coefficient: n * Math.PI * 2,
-        phi: polar.phi,
-      });
-      n++;
+        cs.push({
+          radius: polar.r,
+          coefficient: n * Math.PI * 2,
+          phi: polar.phi,
+        });
+        n++;
+      }
+
+      setCircles(cs);
     }
-
-    setCircles(cs);
   }, [circleNum, path]);
 
   function onDrawFinish(drawing: Point[]) {
