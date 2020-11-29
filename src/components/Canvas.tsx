@@ -12,7 +12,7 @@ interface CanvasProps {
 
 export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
   let theta = 0;
-  const thetaDelta = 0.05;
+  const thetaDelta = 0.001;
   const trail: Point[] = [];
 
   const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -40,8 +40,8 @@ export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
         circle.radius * 2
       );
       prevPoint = {
-        x: prevPoint.x + circle.radius * Math.cos(circle.coefficient * theta),
-        y: prevPoint.y - circle.radius * Math.sin(circle.coefficient * theta),
+        x: prevPoint.x + circle.radius * Math.cos(circle.phi + circle.coefficient * theta),
+        y: prevPoint.y - circle.radius * Math.sin(circle.phi + circle.coefficient * theta),
       };
     }
 

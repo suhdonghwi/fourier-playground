@@ -1,19 +1,34 @@
 import React from "react";
 import Canvas from "./components/Canvas";
+import * as math from "mathjs";
 
 import UnitCircle from "./types/UnitCircle";
+import fourierCoefficient from "./fourier/coefficient";
 
 function App() {
-  const circles: UnitCircle[] = [
-    { radius: 100, coefficient: 1 },
-    { radius: 10, coefficient: 0.1 },
-    { radius: 10, coefficient: 20 },
-    { radius: 30, coefficient: 30 },
-  ];
+  function f(x: number) {
+    if (x <= 0.5) return math.complex(100 * x, 0);
+    else return math.complex(100 * x, 100);
+  }
+
+  const coeffs = fourierCoefficient(f, 50);
+  const circles: UnitCircle[] = [];
+
+  let n = -50;
+  for (const coeff of coeffs) {
+    const polar = coeff.toPolar();
+
+    circles.push({
+      radius: polar.r,
+      coefficient: n * Math.PI * 2,
+      phi: polar.phi,
+    });
+    n++;
+  }
 
   return (
     <div className="App">
-      <Canvas unitCircles={circles} isGraphMode={true} />
+      <Canvas unitCircles={circles} isGraphMode={false} />
     </div>
   );
 }
