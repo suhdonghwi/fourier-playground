@@ -15,6 +15,9 @@ export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
   const thetaDelta = 0.001;
   const trail: Point[] = [];
 
+  let pressed = false;
+  const drawing: Point[] = [];
+
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
@@ -24,6 +27,15 @@ export default function Canvas({ unitCircles, isGraphMode }: CanvasProps) {
 
   const draw = (p5: p5Types) => {
     p5.background(240);
+
+    if (p5.mouseIsPressed) {
+      pressed = true;
+      drawing.push({x: p5.mouseX - p5.width/2, y: (p5.height/2) - p5.mouseY});
+    } else if (pressed) {
+      pressed = false;
+      console.log(drawing);
+      drawing.length = 0;
+    }
 
     p5.noFill();
     p5.stroke(200);
