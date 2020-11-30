@@ -44,7 +44,7 @@ function App() {
 
   const [config, setConfig] = useState<Config>({
     isGraphMode: false,
-    thetaDelta: 0.001,
+    thetaDelta: 0.005,
     circleNum: 30,
     drawTrail: true,
   });

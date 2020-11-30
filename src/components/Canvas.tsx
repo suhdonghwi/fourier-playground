@@ -24,6 +24,8 @@ export default function Canvas({
   let pressed = false;
 
   function resize(p5: p5Types) {
+    trail = [];
+
     if (p5.windowWidth <= 840) {
       p5.resizeCanvas(p5.windowWidth, p5.windowHeight / 2);
     } else {
