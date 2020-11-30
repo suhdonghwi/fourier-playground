@@ -36,24 +36,27 @@ function cleanPath(path: Point[]) {
 }
 
 function App() {
-  const [circleNum, setCircleNum] = useState(50);
   const [isFirst, setIsFirst] = useState(true);
   const [circles, setCircles] = useState<UnitCircle[]>([
     { radius: 80, coefficient: 50, phi: 0 },
   ]);
   const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
 
-  const [config, setConfig] = useState<Config>({ isGraphMode: false });
+  const [config, setConfig] = useState<Config>({
+    isGraphMode: false,
+    thetaDelta: 0.001,
+    circleNum: 30,
+  });
 
   useEffect(() => {
     console.log("what");
-    if (isFirst) {
+    if (isFirst || (path.length === 1 && path[0].x === 0 && path[0].y === 0)) {
       setIsFirst(false);
     } else {
-      const coeffs = fourierCoefficient(path, circleNum);
+      const coeffs = fourierCoefficient(path, config.circleNum);
       const cs: UnitCircle[] = [];
 
-      let n = -circleNum;
+      let n = -config.circleNum;
       for (const coeff of coeffs) {
         const polar = coeff.toPolar();
 
@@ -64,10 +67,11 @@ function App() {
         });
         n++;
       }
+      console.log(cs);
 
       setCircles(cs);
     }
-  }, [circleNum, path]);
+  }, [config.circleNum, path]);
 
   function onDrawFinish(drawing: Point[]) {
     setPath(cleanPath(drawing));
@@ -77,7 +81,7 @@ function App() {
     <div className="App">
       <Canvas
         unitCircles={circles}
-        isGraphMode={config.isGraphMode}
+        config={config}
         onDrawFinish={onDrawFinish}
       />
       <div className="right">

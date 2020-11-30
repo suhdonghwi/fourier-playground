@@ -4,20 +4,20 @@ import p5Types from "p5";
 
 import Point from "../types/Point";
 import UnitCircle from "../types/UnitCircle";
+import { Config } from "./ConfigGrid";
 
 interface CanvasProps {
   unitCircles: UnitCircle[];
-  isGraphMode: boolean;
+  config: Config;
   onDrawFinish: (drawing: Point[]) => void;
 }
 
 export default function Canvas({
   unitCircles,
-  isGraphMode,
+  config,
   onDrawFinish,
 }: CanvasProps) {
   let theta = 0;
-  const thetaDelta = 0.001;
   const trail: Point[] = [];
 
   const drawing: Point[] = [];
@@ -26,7 +26,7 @@ export default function Canvas({
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    p5.createCanvas(p5.windowWidth / 2, p5.windowHeight-3).parent(
+    p5.createCanvas(p5.windowWidth / 2, p5.windowHeight - 3).parent(
       canvasParentRef
     );
     p5.strokeWeight(2);
@@ -56,7 +56,6 @@ export default function Canvas({
 
       return;
     } else if (pressed) {
-      console.log(drawing);
       pressed = false;
       onDrawFinish([...drawing]);
       drawing.length = 0;
@@ -65,7 +64,7 @@ export default function Canvas({
     p5.noFill();
     p5.stroke(200);
 
-    const startPoint = isGraphMode
+    const startPoint = config.isGraphMode
       ? { x: 100, y: p5.height / 2 }
       : { x: p5.width / 2, y: p5.height / 2 };
     let prevPoint = startPoint;
@@ -88,11 +87,13 @@ export default function Canvas({
 
     const point = prevPoint;
 
-    if (isGraphMode) {
+    if (config.isGraphMode) {
       const trailPoint = {
-        x:
+        x: Math.min(
           startPoint.x +
-          unitCircles.map((c) => c.radius).reduce((v1, v2) => v1 + v2, 0),
+            unitCircles.map((c) => c.radius).reduce((v1, v2) => v1 + v2, 0),
+          p5.width / 2
+        ),
         y: point.y,
       };
 
@@ -109,10 +110,6 @@ export default function Canvas({
       trail.push(point);
     }
 
-    p5.fill(0);
-    p5.noStroke();
-    p5.ellipse(point.x, point.y, 7, 7);
-
     p5.beginShape();
     p5.stroke(255, 0, 0);
     p5.noFill();
@@ -121,12 +118,16 @@ export default function Canvas({
       if (point.x <= p5.windowWidth) {
         p5.curveVertex(point.x, point.y);
 
-        if (isGraphMode) point.x += 2;
+        if (config.isGraphMode) point.x += 2;
       }
     }
-    p5.endShape();
 
-    theta += thetaDelta;
+    p5.endShape();
+    p5.fill(0);
+    p5.noStroke();
+    p5.ellipse(point.x, point.y, 7, 7);
+
+    theta += config.thetaDelta;
   };
 
   return <Sketch setup={setup} draw={draw} />;
