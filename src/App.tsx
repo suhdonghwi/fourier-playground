@@ -6,6 +6,7 @@ import Point from "./types/Point";
 import fourierCoefficient from "./fourier/coefficient";
 
 import CircleList from "./components/CircleList";
+import ConfigGrid, { Config } from "./components/ConfigGrid";
 
 function cleanPath(path: Point[]) {
   let lastPoint = path[0];
@@ -35,12 +36,14 @@ function cleanPath(path: Point[]) {
 }
 
 function App() {
-  const [circleNum, setCircleNum] = useState(30);
+  const [circleNum, setCircleNum] = useState(50);
   const [isFirst, setIsFirst] = useState(true);
   const [circles, setCircles] = useState<UnitCircle[]>([
     { radius: 80, coefficient: 50, phi: 0 },
   ]);
   const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
+
+  const [config, setConfig] = useState<Config>({ isGraphMode: false });
 
   useEffect(() => {
     console.log("what");
@@ -74,11 +77,12 @@ function App() {
     <div className="App">
       <Canvas
         unitCircles={circles}
-        isGraphMode={false}
+        isGraphMode={config.isGraphMode}
         onDrawFinish={onDrawFinish}
       />
       <div className="right">
         <CircleList value={circles} onChange={(c) => setCircles(c)} />
+        <ConfigGrid config={config} changeConfig={(c) => setConfig(c)} />
       </div>
     </div>
   );
