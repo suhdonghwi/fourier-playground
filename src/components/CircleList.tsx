@@ -87,7 +87,7 @@ export default function CircleList({ value, onChange }: CircleListProps) {
 
   function onAdd() {
     const integers = addText.split(",").map((n) => parseInt(n));
-    if (integers.length === 3 || !integers.every((v) => isNaN(v))) {
+    if (integers.length === 3 && integers.every((v) => !isNaN(v))) {
       onChange(
         value.concat({
           radius: integers[0],
