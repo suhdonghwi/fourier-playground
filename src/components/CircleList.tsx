@@ -43,6 +43,8 @@ const ListItem = styled.li`
 const InfoBox = styled.div`
   display: flex;
   align-items: center;
+
+  margin: 0.2rem 0;
 `;
 
 const Label = styled.div`
@@ -77,6 +79,7 @@ const AddInput = styled.input`
   border: 1px solid #adb5bd;
   border-radius: 0.2rem;
   outline: none;
+  appearance: none;
 
   margin-right: 0.5rem;
 `;
@@ -90,6 +93,7 @@ const AddButton = styled.input`
   font-size: 1rem;
   padding: 0 1rem;
 
+  appearance: none;
   background-color: #37b24d;
   color: white;
 `;

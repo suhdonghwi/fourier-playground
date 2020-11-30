@@ -23,12 +23,21 @@ export default function Canvas({
   const drawing: Point[] = [];
   let pressed = false;
 
+  function resize(p5: p5Types) {
+    if (p5.windowWidth <= 840) {
+      p5.resizeCanvas(p5.windowWidth, p5.windowHeight / 2);
+    } else {
+      p5.resizeCanvas(p5.windowWidth / 2, p5.windowHeight - 3);
+    }
+  }
+
   const setup = (p5: p5Types, canvasParentRef: Element) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
     p5.createCanvas(p5.windowWidth / 2, p5.windowHeight - 3).parent(
       canvasParentRef
     );
+    resize(p5);
     p5.strokeWeight(2);
   };
 
@@ -130,5 +139,5 @@ export default function Canvas({
     theta += config.thetaDelta;
   };
 
-  return <Sketch setup={setup} draw={draw} />;
+  return <Sketch setup={setup} draw={draw} windowResized={resize}/>;
 }

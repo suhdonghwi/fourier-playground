@@ -26,4 +26,18 @@ code {
   align-items: center;
 
   padding: 2rem 0;
+
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 840px) {
+  .App {
+    flex-direction: column;
+  }
+
+  .right {
+    height: 50vh;
+  }
 }
