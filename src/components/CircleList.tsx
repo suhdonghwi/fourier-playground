@@ -22,6 +22,8 @@ const List = styled.ol`
 `;
 
 const ListItem = styled.li`
+  cursor: pointer;
+
   margin: 1rem 0;
   padding: 1rem; 0;
   border-radius: 0.2rem;
@@ -31,6 +33,11 @@ const ListItem = styled.li`
 
   display: flex;
   flex-wrap: wrap;
+
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #ffe3e3;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -110,11 +117,15 @@ export default function CircleList({ value, onChange }: CircleListProps) {
     }
   }
 
+  function onRemove(index: number) {
+    onChange(value.filter((_, i) => i !== index));
+  }
+
   return (
     <Container>
       <List>
-        {value.map((c) => (
-          <ListItem>
+        {value.map((c, i) => (
+          <ListItem key={i} onClick={() => onRemove(i)}>
             <InfoBox>
               <Label>반지름</Label> <Number>{c.radius.toFixed(3)} </Number>
             </InfoBox>

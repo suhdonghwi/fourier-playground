@@ -11,6 +11,7 @@ export interface Config {
   isGraphMode: boolean;
   thetaDelta: number;
   circleNum: number;
+  drawTrail: boolean;
 }
 
 const Grid = styled.div`
@@ -49,6 +50,15 @@ export default function ConfigGrid({ config, changeConfig }: ConfigGridProps) {
           checked={config.isGraphMode}
           onChange={(e) =>
             changeConfig({ ...config, isGraphMode: e.target.checked })
+          }
+        />
+      </Control>
+      <Label>자취 표시</Label>
+      <Control>
+        <Toggle
+          checked={config.drawTrail}
+          onChange={(e) =>
+            changeConfig({ ...config, drawTrail: e.target.checked })
           }
         />
       </Control>

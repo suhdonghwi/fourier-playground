@@ -46,11 +46,11 @@ function App() {
     isGraphMode: false,
     thetaDelta: 0.001,
     circleNum: 30,
+    drawTrail: true,
   });
 
   useEffect(() => {
-    console.log("what");
-    if (isFirst || (path.length === 1 && path[0].x === 0 && path[0].y === 0)) {
+    if (isFirst || path.length <= 1) {
       setIsFirst(false);
     } else {
       const coeffs = fourierCoefficient(path, config.circleNum);
@@ -62,7 +62,7 @@ function App() {
 
         cs.push({
           radius: polar.r,
-          coefficient: n * Math.PI * 2,
+          coefficient: n,
           phi: polar.phi,
         });
         n++;

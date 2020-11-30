@@ -18,7 +18,7 @@ export default function Canvas({
   onDrawFinish,
 }: CanvasProps) {
   let theta = 0;
-  const trail: Point[] = [];
+  let trail: Point[] = [];
 
   const drawing: Point[] = [];
   let pressed = false;
@@ -114,12 +114,12 @@ export default function Canvas({
     p5.stroke(255, 0, 0);
     p5.noFill();
 
-    for (const point of trail) {
-      if (point.x <= p5.windowWidth) {
+    if (config.drawTrail) {
+      for (const point of trail) {
         p5.curveVertex(point.x, point.y);
-
         if (config.isGraphMode) point.x += 2;
       }
+      trail = trail.filter((p) => p.x <= p5.width);
     }
 
     p5.endShape();
