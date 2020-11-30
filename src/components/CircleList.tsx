@@ -28,6 +28,14 @@ const ListItem = styled.li`
   border: 1px solid #adb5bd;
 
   background-color: white;
+
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const InfoBox = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Label = styled.div`
@@ -40,9 +48,11 @@ const Label = styled.div`
   border-radius: 0.2rem;
 `;
 
-const Number = styled.span`
+const Number = styled.div`
   font-family: monospace;
   font-size: 1.2rem;
+
+  margin: 0 0.5rem;
 `;
 
 const InputContainer = styled.div`
@@ -105,9 +115,15 @@ export default function CircleList({ value, onChange }: CircleListProps) {
       <List>
         {value.map((c) => (
           <ListItem>
-            <Label>반지름</Label> <Number>{c.radius.toFixed(3)} </Number>
-            <Label>계수</Label> <Number>{c.coefficient.toFixed(3)} </Number>
-            <Label>초기각</Label> <Number>{c.phi.toFixed(3)}</Number>
+            <InfoBox>
+              <Label>반지름</Label> <Number>{c.radius.toFixed(3)} </Number>
+            </InfoBox>
+            <InfoBox>
+              <Label>계수</Label> <Number>{c.coefficient.toFixed(3)} </Number>
+            </InfoBox>
+            <InfoBox>
+              <Label>초기각</Label> <Number>{c.phi.toFixed(3)}</Number>
+            </InfoBox>
           </ListItem>
         ))}
       </List>

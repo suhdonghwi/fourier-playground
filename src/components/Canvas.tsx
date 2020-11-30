@@ -116,6 +116,7 @@ export default function Canvas({
     p5.beginShape();
     p5.stroke(255, 0, 0);
     p5.noFill();
+
     for (const point of trail) {
       if (point.x <= p5.windowWidth) {
         p5.curveVertex(point.x, point.y);
