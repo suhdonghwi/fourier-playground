@@ -71,6 +71,7 @@ function App() {
 
       setCircles(cs);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config.circleNum, path]);
 
   function onDrawFinish(drawing: Point[]) {
