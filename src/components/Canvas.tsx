@@ -88,10 +88,6 @@ export default function Canvas({
 
     const point = prevPoint;
 
-    p5.fill(0);
-    p5.noStroke();
-    p5.ellipse(point.x, point.y, 7, 7);
-
     if (isGraphMode) {
       const trailPoint = {
         x:
@@ -112,6 +108,10 @@ export default function Canvas({
     } else {
       trail.push(point);
     }
+
+    p5.fill(0);
+    p5.noStroke();
+    p5.ellipse(point.x, point.y, 7, 7);
 
     p5.beginShape();
     p5.stroke(255, 0, 0);

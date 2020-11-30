@@ -37,7 +37,9 @@ function cleanPath(path: Point[]) {
 function App() {
   const [circleNum, setCircleNum] = useState(30);
   const [isFirst, setIsFirst] = useState(true);
-  const [circles, setCircles] = useState<UnitCircle[]>([]);
+  const [circles, setCircles] = useState<UnitCircle[]>([
+    { radius: 80, coefficient: 50, phi: 0 },
+  ]);
   const [path, setPath] = useState<Point[]>([{ x: 0, y: 0 }]);
 
   useEffect(() => {
