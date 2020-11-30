@@ -46,6 +46,13 @@ export default function Canvas({
   const draw = (p5: p5Types) => {
     p5.background(240);
 
+    if (!config.isGraphMode) {
+      p5.textSize(25);
+      p5.fill(150);
+      p5.noStroke();
+      p5.text("아무 도형이나 그려보세요!", p5.width / 2 - 125, 50);
+    }
+
     if (p5.mouseIsPressed && p5.mouseX <= p5.width && p5.mouseY <= p5.height) {
       pressed = true;
       trail.length = 0;
@@ -141,5 +148,5 @@ export default function Canvas({
     theta += config.thetaDelta;
   };
 
-  return <Sketch setup={setup} draw={draw} windowResized={resize}/>;
+  return <Sketch setup={setup} draw={draw} windowResized={resize} />;
 }
