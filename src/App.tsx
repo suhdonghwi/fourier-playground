@@ -74,7 +74,7 @@ function App() {
     <div className="App">
       <Canvas
         unitCircles={circles}
-        isGraphMode={true}
+        isGraphMode={false}
         onDrawFinish={onDrawFinish}
       />
       <div className="right">

@@ -17,12 +17,14 @@ export default function fourierCoefficient(
       if (!point) {
         continue;
       }
+
+      const theta = 2 * Math.PI * -n * t;
       sum = math.add(
         sum,
         math.multiply(
           math.multiply(
             math.complex(point.x, point.y),
-            math.evaluate(`e^((-${n}) * 2 * pi * i * ${t})`)
+            math.complex(Math.cos(theta), Math.sin(theta))
           ),
           delta
         )
