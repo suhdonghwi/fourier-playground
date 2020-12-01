@@ -86,8 +86,8 @@ function App() {
         onDrawFinish={onDrawFinish}
       />
       <div className="right">
-        <ConfigGrid config={config} changeConfig={(c) => setConfig(c)} />
         <CircleList value={circles} onChange={(c) => setCircles(c)} />
+        <ConfigGrid config={config} changeConfig={(c) => setConfig(c)} />
       </div>
     </div>
   );

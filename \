@@ -152,18 +152,13 @@ export default function Canvas({
     p5.noFill();
 
     if (config.drawTrail) {
-      let lastOffIndex = 0;
-
-      for (let i = 0; i < trail.length; i++) {
-        if (trail[i].x > p5.width) {
-          lastOffIndex = i;
-        }
-
-        p5.curveVertex(trail[i].x, trail[i].y);
-        if (config.isGraphMode) trail[i].x += 2;
+      let i = trail.length;
+      for (const point of trail) {
+        p5.curveVertex(point.x, point.y);
+        if (config.isGraphMode) point.x += 2;
       }
 
-      trail.splice(0, lastOffIndex);
+      trail = trail.filter((p) => p.x <= p5.width);
     }
 
     p5.endShape();
