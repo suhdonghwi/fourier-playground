@@ -42,6 +42,5 @@ body {
 
   .right {
     height: 50vh;
-    flex-direction: column-reverse;
   }
 }

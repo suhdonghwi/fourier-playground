@@ -5,7 +5,7 @@ import UnitCircle from "../types/UnitCircle";
 
 const Container = styled.div`
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 
   width: 70%;
 `;

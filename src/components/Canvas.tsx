@@ -32,6 +32,8 @@ export default function Canvas({
   if (unitCircles.every((c) => c.coefficient === 0)) {
     period = -1;
   } else {
+    // 함수 f(x), g(x)의 주기가 각각 p, q라고 하면
+    // f(x) + g(x)의 주기는 lcm(p, q)
     period = period =
       (2 /
         unitCircles
