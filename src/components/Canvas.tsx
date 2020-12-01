@@ -62,7 +62,6 @@ export default function Canvas({
       canvasParentRef
     );
     resize(p5);
-    p5.strokeWeight(2);
   };
 
   const draw = (p5: p5Types) => {
@@ -109,12 +108,16 @@ export default function Canvas({
       : { x: p5.width / 2, y: p5.height / 2 };
     let prevPoint = startPoint;
     for (const circle of unitCircles) {
+      p5.strokeWeight(2);
+      p5.stroke(200);
       p5.ellipse(
         prevPoint.x,
         prevPoint.y,
         circle.radius * 2,
         circle.radius * 2
       );
+
+      let tempPoint = prevPoint;
       prevPoint = {
         x:
           prevPoint.x +
@@ -123,6 +126,10 @@ export default function Canvas({
           prevPoint.y -
           circle.radius * Math.sin(circle.phi + circle.coefficient * theta),
       };
+
+      p5.strokeWeight(1);
+      p5.stroke(200);
+      p5.line(tempPoint.x, tempPoint.y, prevPoint.x, prevPoint.y);
     }
 
     const point = prevPoint;
@@ -151,6 +158,7 @@ export default function Canvas({
     }
 
     p5.beginShape();
+    p5.strokeWeight(2);
     p5.stroke(255, 0, 0);
     p5.noFill();
 
