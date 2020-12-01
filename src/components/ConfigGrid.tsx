@@ -15,7 +15,7 @@ export interface Config {
 }
 
 const Grid = styled.div`
-  margin-top: 2rem;
+  margin: 0 0 2rem 0;
 
   display: grid;
   grid-template-columns: 100px 1fr;

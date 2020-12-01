@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import UnitCircle from "../types/UnitCircle";
 
 const Container = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   width: 70%;
 `;
 
@@ -134,7 +134,7 @@ export default function CircleList({ value, onChange }: CircleListProps) {
               <Label>반지름</Label> <Number>{c.radius.toFixed(3)} </Number>
             </InfoBox>
             <InfoBox>
-              <Label>계수</Label> <Number>{c.coefficient.toFixed(3)} </Number>
+              <Label>계수</Label> <Number>{c.coefficient.toFixed()} </Number>
             </InfoBox>
             <InfoBox>
               <Label>초기각</Label> <Number>{c.phi.toFixed(3)}</Number>

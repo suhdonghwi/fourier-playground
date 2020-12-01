@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
 
 body {
   margin: 0;
@@ -9,6 +16,11 @@ body {
 
 .App {
   display: flex;
+
+  height: 100vh;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: stretch;
 }
 
 .App > * {
@@ -19,7 +31,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 2rem 0;
 
   height: 100vh;
@@ -33,6 +44,6 @@ body {
   }
 
   .right {
-    height: 50vh;
+    flex-direction: column-reverse;
   }
 }
