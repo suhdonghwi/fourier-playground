@@ -4,7 +4,9 @@ import styled from "styled-components/macro";
 import UnitCircle from "../types/UnitCircle";
 
 const Container = styled.div`
-  margin: 0 auto 2rem auto;
+  margin: 0 auto;
+  padding: 1rem 0;
+
   width: 70%;
 `;
 

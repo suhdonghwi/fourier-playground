@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
-html, body {
+html, body, #root {
+  margin: 0;
+  padding: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  -webkit-overflow-scrolling: touch;
+  position: fixed;
 }
 
 body {
-  margin: 0;
   font-family: "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,11 +17,7 @@ body {
 
 .App {
   display: flex;
-
-  height: 100vh;
-  height: -moz-available; /* WebKit-based browsers will ignore this. */
-  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-  height: stretch;
+  height: 100%;
 }
 
 .App > * {
@@ -31,11 +28,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 0;
 
   height: 100vh;
   overflow: auto;
   box-sizing: border-box;
+  padding: 1.5rem 0;
 }
 
 @media screen and (max-width: 840px) {
@@ -44,6 +41,7 @@ body {
   }
 
   .right {
+    height: 50vh;
     flex-direction: column-reverse;
   }
 }

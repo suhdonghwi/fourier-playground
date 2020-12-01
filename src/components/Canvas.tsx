@@ -44,6 +44,7 @@ export default function Canvas({
 
   function resize(p5: p5Types) {
     trail = [];
+    theta = 0;
 
     if (p5.windowWidth <= 840) {
       p5.resizeCanvas(p5.windowWidth, p5.windowHeight / 2);
