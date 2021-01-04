@@ -37,8 +37,8 @@ export default function Canvas({
     period = period =
       (2 /
         unitCircles
-          .map((c) => c.coefficient)
-          .filter((coeff) => coeff > 0)
+          .map((c) => Math.abs(c.coefficient))
+          .filter((coeff) => coeff !== 0)
           .reduce(gcd)) *
       2 *
       Math.PI;
